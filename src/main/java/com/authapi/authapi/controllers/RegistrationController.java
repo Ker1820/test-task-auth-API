@@ -21,10 +21,12 @@ public class RegistrationController {
     }
     @PostMapping("/registration")
     public String intoDB(@RequestParam String firstname, @RequestParam String lastname,
-                         @RequestParam String login, @RequestParam String password, Model model){
-        User user = new User(firstname,lastname,login);
-        user.setHashpassword("12345");
+                         @RequestParam String username, @RequestParam String password, Model model){
+        User user = new User(firstname,lastname,username);
+        user.setPassword(password);
         user.setSaltpassword("67890");
+        user.setEnabled(true);
+        user.setAuthority("USER");
         userRepository.save(user);
         Iterable<User> users = userRepository.findAll();
         model.addAttribute("users", users);

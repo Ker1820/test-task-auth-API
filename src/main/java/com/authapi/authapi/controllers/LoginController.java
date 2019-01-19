@@ -10,8 +10,8 @@ public class LoginController {
     public String getLogin(){
         return "loginPage";
     }
-    @PostMapping("/login")
-    public String login(){
-        return "";
-    }
+//    @PostMapping("/login")
+//    public String login(){
+//        return "dataPage";
+//    }
 }

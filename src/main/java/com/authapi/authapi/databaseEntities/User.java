@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-//@Table(name = "user_repository")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,11 +15,31 @@ public class User {
 
     private String lastname;
 
-    private String login;
+    private String username;
 
-    private String hashpassword;
+    private String password;
 
     private String saltpassword;
+
+    private boolean enabled;
+
+    private String authority;
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public User(){
 
@@ -29,7 +48,7 @@ public class User {
     public User(String firstname, String lastname, String login) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.login = login;
+        this.username = login;
     }
 
     public Integer getId() {
@@ -56,20 +75,20 @@ public class User {
         this.lastname = lastname;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getHashpassword() {
-        return hashpassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashpassword(String hashpassword) {
-        this.hashpassword = hashpassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getSaltpassword() {
