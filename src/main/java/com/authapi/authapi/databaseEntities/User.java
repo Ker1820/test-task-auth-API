@@ -26,6 +26,12 @@ public class User {
 
     }
 
+    public User(String firstname, String lastname, String login) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.login = login;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
 </head>
 <body>
-    <form method="post" action="">
+    <form method="post" action="/registration">
         Enter your first name: <input type="text" name="firstname"/><br>
         Enter your last name: <input type="text" name="lastname"/><br>
         Enter your login: <input type="text" name="login"/><br>
         Enter your password: <input type="password" name="password"/><br>
         <input type="submit" value="Register"/>
-
     </form>
+    <table>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Login</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstname}"></td>
+            <td th:text="${user.lastname}"></td>
+            <td th:text="${user.login}"></td>
+        </tr>
+    </table>
 </body>
 </html>
