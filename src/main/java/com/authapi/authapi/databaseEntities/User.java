@@ -1,12 +1,20 @@
 package com.authapi.authapi.databaseEntities;
 
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
-public class User {
+@Data
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -19,83 +27,41 @@ public class User {
 
     private String password;
 
-    private String saltpassword;
-
-    private boolean enabled;
-
-    private String authority;
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public User(){
+    public User() {
 
     }
 
-    public User(String firstname, String lastname, String login) {
+    public User(String firstname, String lastname, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.username = login;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getSaltpassword() {
-        return saltpassword;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setSaltpassword(String saltpassword) {
-        this.saltpassword = saltpassword;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("USER_ROLE"));
+    }
+
+
 }
