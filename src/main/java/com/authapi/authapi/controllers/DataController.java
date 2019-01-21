@@ -5,8 +5,9 @@ package com.authapi.authapi.controllers;
 
 import com.authapi.authapi.databaseEntities.User;
 import com.authapi.authapi.repositories.UserRepository;
-import com.authapi.authapi.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +23,11 @@ public class DataController {
 
     @GetMapping("/userdata")
     public String getData(HttpServletRequest request, Model model) {
-
-        User user = userRepository.findByUsername(UserDetailService.getCurrentUsername());
+        User user = userRepository.findByUsername(getCurrentUsername());
         HttpSession session = request.getSession();
         String req = (String) session.getAttribute("token");
+
+        model.addAttribute("user_login", user.getUsername());
 
         if (req.equals(user.getToken())) {
             model.addAttribute("user", user);
@@ -33,6 +35,11 @@ public class DataController {
             model.addAttribute("user", new User("none", "none", "none", "none"));
 
         return "dataPage";
+    }
+    private static String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return currentPrincipalName;
     }
 
 }

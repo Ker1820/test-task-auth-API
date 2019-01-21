@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%);
     font-family: Arial;
     font-size: 30px">
-<h1>Hello, User!</h1>
+<h1>Hello, <span th:text="${user_login}"></span>!</h1>
 <form method="POST" th:action="@{/logout}">
     <input style="font-size: 30px" type="submit" value="Logout"/>
 </form>

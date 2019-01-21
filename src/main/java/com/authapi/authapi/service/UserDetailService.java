@@ -8,8 +8,6 @@ import com.authapi.authapi.databaseEntities.User;
 import com.authapi.authapi.repositories.UserRepository;
 import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,20 +25,22 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-
-        if (user != null) {
+        String token = "";
+        if (user != null && !username.equals("")) {
             try {
-                user.setToken(makeToken(user.getUsername()));
+                token = makeToken(user.getUsername());
+                user.setToken(token);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
             userRepository.save(user);
         } else
             throw new UsernameNotFoundException("No such user");
-        putTokenIntoSesstion(user);
+        putTokenIntoSesstion(token);
         return user;
     }
 
@@ -62,15 +62,9 @@ public class UserDetailService implements UserDetailsService {
         return result;
     }
 
-    public static String getCurrentUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        return currentPrincipalName;
-    }
-
-    private static void putTokenIntoSesstion(User user) {
+    private static void putTokenIntoSesstion(String token) {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession();
-        session.setAttribute("token", user.getToken());
+        session.setAttribute("token", token);
     }
 }
