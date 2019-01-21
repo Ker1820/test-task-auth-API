@@ -3,14 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
 </head>
-<body>
-<form method="post" action="/registration">
-    Enter your first name: <input type="text" name="firstname"/><br>
-    Enter your last name: <input type="text" name="lastname"/><br>
-    Enter your username: <input type="text" name="username"/><br>
-    Enter your password: <input type="password" name="password"/><br>
-    <input type="submit" value="Register"/>
+<body style="position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial;
+    font-size: 30px">
+<-----Registration page----->
+<span class="error" th:text="${Error}"></span>
+<form method="post" th:action="@{/registration}" th:object="${user}">
+    <div th:if="${#fields.hasErrors()}">
+            <span class="error">
+                Please correct hte problems below and resubmit
+            </span>
+    </div>
+    Enter your first name: <input style="font-size: 30px" type="text" name="firstname"/>
+    <span class="error" th:if="${#fields.hasErrors('firstname')}"
+          th:errors="*{firstname}"></span>
+    <br>
+    Enter your last name: <input style="font-size: 30px" type="text" name="lastname"/>
+    <span class="error" th:if="${#fields.hasErrors('lastname')}"
+          th:errors="*{lastname}"></span>
+    <br>
+    Enter your username: <input style="font-size: 30px" type="text" name="username"/>
+    <span class="error" th:if="${#fields.hasErrors('username')}"
+          th:errors="*{username}"></span>
+    <br>
+    Enter your password: <input style="font-size: 30px" type="password" name="password"/>
+    <span class="error" th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}"></span>
+    <br>
+    <input style="font-size: 30px" type="submit" value="Register"/>
 </form>
+<a th:href="@{/login}"> Login </a><br>
+<a th:href="@{/}"> Go to greeting page </a>
 </body>
 </html>

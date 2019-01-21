@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <title>Data page</title>
 </head>
-<body>
-<h1>Hello, Boob!</h1>
+<body style="position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial;
+    font-size: 30px">
+<h1>Hello, User!</h1>
 <form method="POST" th:action="@{/logout}">
-    <input type="submit" value="Logout"/>
+    <input style="font-size: 30px" type="submit" value="Logout"/>
 </form>
+<form method="GET" th:action="@{/userdata}">
+    <input style="font-size: 30px" type="submit" value="Get user information"/>
+</form>
+<h3 th:object="${user}">
+    First name: <span th:text="${user.getFirstname()}"/><br>
+    Last name: <span th:text="${user.getLastname()}"/>
+</h3>
+<a th:href="@{/}"> Go to greeting page </a>
 </body>
 </html>

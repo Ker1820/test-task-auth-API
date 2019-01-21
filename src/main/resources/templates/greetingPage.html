@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <title>Greetings</title>
 </head>
-<body>
+<body style="align-content: center">
 <h1>Welcome to the greeting page</h1>
-<h3>If you want to login <a th:href="@{/login}">click here</a></h3>
-<h3>If you want to register new user <a th:href="@{/registration}">click here</a></h3>
+<form style="position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial;
+    font-size: 30px">
+    <h3>If you want to login <a th:href="@{/login}">click here</a></h3>
+    <h3>If you want to register new user <a th:href="@{/registration}">click here</a></h3>
+    <h3>If you want to see user information (first you must be registered)<a th:href="@{/userdata}">click here</a></h3>
+</form>
 </body>
 </html>

@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
 </head>
-<body>
-<form method="post" action="/login">
-    Enter username: <input type="text" name="username"/><br>
-    Enter password: <input type="password" name="password"/><br>
-    <input type="submit" value="Login">
+<body style="position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial;
+    font-size: 30px">
+<-----Login page----->
+<form method="post" th:action="@{/login}">
+    Enter username: <input style="font-size: 30px" type="text" name="username"/><br>
+    Enter password: <input style="font-size: 30px" type="password" name="password"/><br>
+    <input style="font-size: 30px" type="submit" value="Login">
 </form>
+<a th:href="@{/registration}"> Add new user</a><br>
+<a th:href="@{/}"> Go to greeting page </a>
 </body>
 </html>

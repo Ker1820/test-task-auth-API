@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,13 +20,20 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "First name is required")
     private String firstname;
 
+    @NotBlank(message = "Last name is required")
     private String lastname;
 
+    @NotBlank(message = "Login is required")
     private String username;
 
+    @NotBlank(message = "Password is required")
     private String password;
+
+    private String token;
+
 
     public User() {
 
